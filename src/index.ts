@@ -27,7 +27,11 @@ app.delete("/api/todo18/:id", async (c) => {
   let result = await todo18Router.delete(c);
   return c.json(result.data , result.status);
 });
-
+app.put("/api/todo18", async (c) => {
+  let result = await todo18Router.update(c);
+  return c.json(result.data , result.status);
+});
+  
 //MPA
 app.get('/todo18', (c) => {
   const htm = Todo18({});

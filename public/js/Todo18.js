@@ -42,24 +42,15 @@ const deleteTodo = async (id) => {
   }
   return await response.json();
 };
-/*
-import { z } from "zod";
 
-const todoSchema = z.object({
-    title: z.string().min(1, "タイトルは必須です"),
-    description: z.string().optional(),
-    completed: z.boolean().optional(),
-});
-*/
 const TodoDialog = (props) => {
     const [title, setTitle] = React.useState("");
-    if(props.initialTodo && props.initialTodo.title) {setTitle(props.initialTodo.title)}
+    //if(props.initialTodo && props.initialTodo.title) {setTitle(props.initialTodo.title)}
     const [description, setDescription] = React.useState("");
-    if(props.initialTodo && props.initialTodo.description){ setDescription(props.initialTodo.description) }
+    //if(props.initialTodo && props.initialTodo.description){ setDescription(props.initialTodo.description) }
     const [completed, setCompleted] = React.useState(false);
     const [errors, setErrors] = React.useState([]);
     const dialogRef = React.useRef(null);
-
 
     React.useEffect(() => {
         if (props.isOpen) {
@@ -225,14 +216,16 @@ const App = () => {
 
   const handleSaveTodo = async (todo) => {
     try {
-        if (todo.id) {
-            await updateTodo(todo);
-        } else {
-            await addTodo(todo);
-        }
-        fetchTodosData(searchQuery);
+      console.log("#handleSaveTodo");
+      console.log(todo);
+      if (todo.id) {
+        await updateTodo(todo);
+      } else {
+        await addTodo(todo);
+      }
+      fetchTodosData(searchQuery);
     } catch (error) {
-        console.error("Failed to save todo:", error);
+      console.error("Failed to save todo:", error);
     }
     setIsDialogOpen(false);
   };

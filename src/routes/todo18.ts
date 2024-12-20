@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-//import { createDatabase, todoSchema, type NewTodo, type UpdateTodo } from "../utils/db";
 import { z } from "zod";
 
 export const todoSchema = z.object({
@@ -114,43 +113,17 @@ const todo18Router = {
     }
 
   },
-}
 
-export default todo18Router;
-
-// TODOの追加
-todosRouter.post("/", async (c) => {
-    const db = createDatabase(c.env);
-    const body = await c.req.json();
-    const result = createTodoSchema.safeParse(body);
-     if (!result.success) {
-        return c.json({ message: "バリデーションエラー", errors: result.error.issues }, 400)
-    }
-    const newTodo = result.data as NewTodo;
-    const { title, description } = newTodo;
-
-    const now = Date.now();
-    const { results } = await db
-      .prepare(
-        "INSERT INTO todos (title, description, created_at, updated_at) VALUES (?, ?, ?, ?) RETURNING id, title, description, completed, created_at, updated_at",
-      )
-      .bind(title, description, now, now)
-      .all();
-
-    if (!results || results.length === 0) {
-      return c.json({ message: "Todoの追加に失敗しました" }, 500);
-    }
-    return c.json(results[0], 201);
-});
-
-// TODOの編集
-todosRouter.put("/", async (c) => {
+  update: async function(c: any){
     const db = createDatabase(c.env);
     const body = await c.req.json();
     const result = updateTodoSchema.safeParse(body);
 
-     if (!result.success) {
-        return c.json({ message: "バリデーションエラー", errors: result.error.issues }, 400)
+    if (!result.success) {
+      //return c.json({ message: "バリデーションエラー", errors: result.error.issues }, 400)
+      return {
+        data: { message: "バリデーションエラー", errors: result.error.issues }, status: 400
+      }
     }
     const updateTodo = result.data as UpdateTodo;
     const {id, title, description, completed} = updateTodo;
@@ -158,52 +131,26 @@ todosRouter.put("/", async (c) => {
     const now = Date.now();
     const { results } = await db
       .prepare(
-        "UPDATE todos SET title = ?, description = ?, completed = ?, updated_at = ? WHERE id = ? RETURNING id, title, description, completed, created_at, updated_at",
+        "UPDATE todo18 SET title = ?, description = ?, completed = ?, updated_at = ? WHERE id = ? RETURNING id, title, description, completed, created_at, updated_at",
       )
       .bind(title, description, completed, now, id)
       .all();
     if (!results || results.length === 0) {
-      return c.json({ message: "Todoが見つかりませんでした" }, 404);
+      //return c.json({ message: "Todoが見つかりませんでした" }, 404);
+      return {
+        data: { message: "Todoが見つかりませんでした" }, status: 404
+      }
     }
-    return c.json(results[0]);
-});
+    //return c.json(results[0]);
+    return {
+      data: results[0], status: 200
+    }
+  },
 
-// TODOの削除
-todosRouter.delete("/:id", async (c) => {
-  const db = createDatabase(c.env);
-  const id = parseInt(c.req.param("id"), 10);
+}
 
-  if (isNaN(id)) {
-    return c.json({ message: "無効なIDです" }, 400);
-  }
+export default todo18Router;
 
-  const { results } = await db
-    .prepare("DELETE FROM todos WHERE id = ? RETURNING id, title, description, completed, created_at, updated_at")
-    .bind(id)
-    .all();
-
-  if (!results || results.length === 0) {
-    return c.json({ message: "Todoが見つかりませんでした" }, 404);
-  }
-  return c.json(results[0]);
-});
-
-// TODOの検索
-todosRouter.get("/search", async (c) => {
-  const db = createDatabase(c.env);
-  const query = c.req.query("q");
-
-  if (!query) {
-    return c.json({ message: "検索キーワードを入力してください" }, 400);
-  }
-
-  const { results } = await db
-    .prepare("SELECT id, title, description, completed, created_at, updated_at FROM todos WHERE title LIKE ?")
-    .bind(`%${query}%`)
-    .all();
-
-  return c.json(results);
-});
 
 // TODOの取得（ID指定または全件）
 todosRouter.get("/:id?", async (c) => {
@@ -232,5 +179,3 @@ todosRouter.get("/:id?", async (c) => {
         .all();
     return c.json(results);
 });
-
-//export default todosRouter;
