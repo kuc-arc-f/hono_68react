@@ -52,6 +52,8 @@ npx tailwindcss -i ./src/main.css -o ./public/main.css --watch
 ***
 ### Prompt
 
+* todo18
+* https://gist.github.com/kuc-arc-f/699dbbcff2a8fb00c4730813916652ba
 
 ***
 # License
