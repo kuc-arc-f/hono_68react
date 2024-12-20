@@ -44,6 +44,11 @@ database_name = ""
 database_id = ""
 
 ```
+***
+* tailwindcss
+```
+npx tailwindcss -i ./src/main.css -o ./public/main.css --watch
+```
 
 ***
 ### Prompt

@@ -1,0 +1,17 @@
+{
+  "name": "hono_68",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --minify"
+  },
+  "dependencies": {
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "wrangler": "^3.96.0"
+  }
+}
