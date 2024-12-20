@@ -19,8 +19,7 @@ Workers + React + hono + d1 database + tailwindcss
 ### build
 
 ```
-bun run build
-bun run dev
+yarn dev
 ```
 
 ***
