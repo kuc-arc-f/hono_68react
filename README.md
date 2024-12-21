@@ -53,6 +53,8 @@ npx tailwindcss -i ./src/main.css -o ./public/main.css --watch
 ### example
 * todo18 : React 18, gemini generate
 * react19 : React 19 example
+* vuecdn: Vue 3 example
+* todo20: Vue 3 , gemini generate
 
 ***
 ### Prompt
