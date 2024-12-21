@@ -10,11 +10,12 @@ import React19 from './pages/React19';
 import React19_2 from './pages/React19_2';
 import Todo18 from './pages/Todo18';
 import Todo19 from './pages/Todo19';
-import Todo19 from './pages/Todo19';
+import Todo20 from './pages/Todo20';
 import VueCdn from './pages/VueCdn';
 //
 import todo18Router from "./routes/todo18";
 import todo19Router from "./routes/todo19";
+import todo20Router from "./routes/todo20";
 
 const app = new Hono<{ Bindings: { DB: D1Database } }>();
 
@@ -45,6 +46,22 @@ app.post("/api/todo19", async (c) => {
   let result = await todo19Router.create(c);
   return c.json(result.data , result.status);
 });
+app.get("/api/todo20", async (c) => {
+  let result = await todo20Router.search(c);
+  return c.json(result.data , result.status);
+});
+app.post("/api/todo20", async (c) => {
+  let result = await todo20Router.create(c);
+  return c.json(result.data , result.status);
+});
+app.delete("/api/todo20/:id", async (c) => {
+  let result = await todo20Router.delete(c);
+  return c.json(result.data , result.status);
+});
+app.put("/api/todo20/:id", async (c) => {
+  let result = await todo20Router.update(c);
+  return c.json(result.data , result.status);
+});
 
 //MPA
 app.get('/todo18', (c) => {
@@ -56,6 +73,11 @@ app.get('/todo19', (c) => {
   const htm = Todo19({});
   return c.html(htm)
 })
+app.get('/todo20', (c) => {
+  const htm = Todo20({});
+  return c.html(htm)
+})
+
 app.get('/react19', (c) => {
   const htm = React19({});
   return c.html(htm)

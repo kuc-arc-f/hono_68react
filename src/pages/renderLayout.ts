@@ -23,6 +23,7 @@ export default function Compo(props: any) {
       <a href="/vuecdn">[ vuecdn ]</a>
       <a href="/todo18">[ todo18 ]</a>
       <a href="/todo19">[ todo19 ]</a>
+      <a href="/todo20">[ todo20 ]</a>
     </div>
     <hr />        
     ${props.children}

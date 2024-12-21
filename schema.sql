@@ -25,4 +25,11 @@ CREATE TABLE IF NOT EXISTS todo19 (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
+---todo20
+CREATE TABLE  todo20 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT,
+    createdAt TEXT,
+    updatedAt TEXT
+);
