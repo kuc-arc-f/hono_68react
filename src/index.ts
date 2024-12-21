@@ -7,8 +7,11 @@ interface Env {
 }
 import Top from './pages/App';
 import React19 from './pages/React19';
+import React19_2 from './pages/React19_2';
 import Todo18 from './pages/Todo18';
 import Todo19 from './pages/Todo19';
+import Todo19 from './pages/Todo19';
+import VueCdn from './pages/VueCdn';
 //
 import todo18Router from "./routes/todo18";
 import todo19Router from "./routes/todo19";
@@ -56,8 +59,15 @@ app.get('/todo19', (c) => {
 app.get('/react19', (c) => {
   const htm = React19({});
   return c.html(htm)
-})
-
+});
+app.get('/react19_2', (c) => {
+  const htm = React19_2({});
+  return c.html(htm)
+});
+app.get('/vuecdn', (c) => {
+  const htm = VueCdn({});
+  return c.html(htm)
+});
 
 app.get('/', (c) => {
   const htm = Top({});
