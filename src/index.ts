@@ -76,6 +76,10 @@ app.delete("/api/todo22/:id", async (c) => {
   let result = await todo22Router.delete(c);
   return c.json(result.data , result.status);
 });
+app.put("/api/todo22/:id", async (c) => {
+  let result = await todo22Router.update(c);
+  return c.json(result.data , result.status);
+});
 
 //MPA
 app.get('/todo18', (c) => {

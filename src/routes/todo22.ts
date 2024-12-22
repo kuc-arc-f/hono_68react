@@ -94,35 +94,55 @@ const todo22Router = {
   },
 
   update: async function(c: any){
+    //todo22
     const db = createDatabase(c.env);
     const id = parseInt(c.req.param("id"), 10);
     console.log("id=", id);
+//return {
+//  data: null, status: 500
+//}
+    //const itemId = parseInt(path.split('/')[2]);
     const body = await c.req.json();
     console.log(body);
-    const result = updateTodoSchema.safeParse(body);
-    if (!result.success) {
-      return {
-        data: { message: "バリデーションエラー", errors: result.error.issues }, status: 400
-      }
-    }
-    const updateTodo = result.data as UpdateTodo;
-    //const {id, name, description, completed} = updateTodo;
-    const {name, description} = updateTodo;
+    const { 
+      title, content, public_type, food_orange, food_apple, food_banana, pub_date1, pub_date2, pub_date3, qty1, qty2, qty3 
+    } = body;
 
-    const now = Date.now();
-    const { results } = await db
-      .prepare(
-        "UPDATE todo22 SET name = ?, description = ?, updatedAt = ? WHERE id = ? RETURNING id, name, description, createdAt, updatedAt",
-      )
-      .bind(name, description, now, id)
-      .all();
-    if (!results || results.length === 0) {
+    const stmt = db.prepare(`
+        UPDATE todo22 SET 
+            title = ?,
+            content = ?,
+            public_type = ?,
+            food_orange = ?,
+            food_apple = ?,
+            food_banana = ?,
+            pub_date1 = ?,
+            pub_date2 = ?,
+            pub_date3 = ?,
+            qty1 = ?,
+            qty2 = ?,
+            qty3 = ?,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+    `);
+    
+    const info = await stmt.bind(
+      title, content, public_type, food_orange, food_apple, food_banana, pub_date1, pub_date2, pub_date3, qty1, qty2, qty3, 
+      id
+    ).run();
+
+    if (info.changes === 0) {
+      //return new Response('Item not found', { status: 404 });
       return {
-        data: { message: "Todoが見つかりませんでした" }, status: 404
+        data: JSON.stringify({ message: 'Item not found' }), status: 404
       }
     }
+    
+    //return new Response(JSON.stringify({ message: 'Item updated successfully' }), {
+    //    headers: { 'Content-Type': 'application/json' },
+    //});
     return {
-      data: results[0], status: 200
+      data: JSON.stringify({ message: 'Item updated successfully' }), status: 200
     }
   },
 
