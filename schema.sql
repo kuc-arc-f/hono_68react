@@ -33,3 +33,21 @@ CREATE TABLE  todo20 (
     createdAt TEXT,
     updatedAt TEXT
 );
+--todo22
+CREATE TABLE IF NOT EXISTS todo22 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT,
+    public_type TEXT NOT NULL,
+    food_orange INTEGER DEFAULT 0,
+    food_apple INTEGER DEFAULT 0,
+    food_banana INTEGER DEFAULT 0,
+    pub_date1 TEXT,
+    pub_date2 TEXT,
+    pub_date3 TEXT,
+    qty1 TEXT,
+    qty2 TEXT,
+    qty3 TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
