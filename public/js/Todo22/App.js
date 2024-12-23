@@ -4,7 +4,7 @@ import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 const htm = `
 <div>
   <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Todo22</h1>
+    <h1 class="text-3xl font-bold mb-4">Todo22</h1>
 
     <!-- 検索フォーム -->
     <div class="mb-4 flex items-center">
@@ -17,8 +17,14 @@ const htm = `
       <button @click="searchTodos" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">検索</button>
       <button @click="clearSearch" class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">クリア</button>
     </div>
+
+    <!-- TODO追加ボタン -->
+    <button @click="openAddDialog" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      TODOを追加
+    </button>
+
     <!-- TODOリスト -->
-    <ul class="mb-4">
+    <ul class="my-4">
       <li v-for="todo in filteredTodos" :key="todo.id" class="border p-4 mb-2 rounded shadow-md">
         <div class="flex justify-between items-center">
             <h2 class="text-lg font-semibold">{{ todo.title }}</h2>
@@ -44,11 +50,6 @@ const htm = `
 
       </li>
     </ul>
-
-    <!-- TODO追加ボタン -->
-    <button @click="openAddDialog" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      TODOを追加
-    </button>
 
     <!-- TODO追加ダイアログ -->
     <dialog id="addTodoDialog" class="p-4 rounded shadow-md">
